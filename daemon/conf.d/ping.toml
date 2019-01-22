@@ -1,0 +1,15 @@
+
+[Programs]
+    [Program]
+    Title = "Ping"
+    Command = "ping google.com"
+    ProcessName = "%[1]s-%[2]d" # #1 is program_name #2 is process_num
+    NumProcs = 1
+    Directory = "."
+    Prioirity = 1
+    AutoStart = true
+    StartSecs = 1
+    StartRetries = 5
+    User = ""
+    Group = ""
+    StopSignal = "QUIT"
