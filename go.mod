@@ -1,3 +1,4 @@
-module goverseer
+module github.com/lajosbencz/goverseer
 
-require github.com/BurntSushi/toml v0.3.1
+go 1.13
+
