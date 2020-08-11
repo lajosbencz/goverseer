@@ -9,10 +9,11 @@ import (
 )
 
 func main() {
+	pid := os.Getpid()
 	argError := flag.Bool("error", false, "Should the process exit with error")
 	argRepeat := flag.Int("repeat", 0, "How many times should it run (0 means infinite)")
 	argCode := flag.Int("code", 0, "Exit code of the process")
-	argDebug := flag.Bool("debug", false, "Print extra debug info")
+	argDebug := flag.Bool("debug", true, "Print extra debug info")
 	argSleep := flag.Int("sleep", 1, "How many seconds the process should sleep after each loop")
 	flag.Parse()
 	argMessage := strings.Join(flag.Args(), " ")
@@ -21,6 +22,7 @@ func main() {
 	}
 
 	if *argDebug {
+		fmt.Println("pid:", pid)
 		fmt.Println("error:", *argError)
 		fmt.Println("repeat:", *argRepeat)
 		fmt.Println("code:", *argCode)
@@ -28,9 +30,15 @@ func main() {
 	}
 
 	for i := 0; i < *argRepeat || *argRepeat < 1; i++ {
-		fmt.Println("#", i, ":", argMessage)
+		fmt.Println(pid, "#", i, ":", argMessage)
 		time.Sleep(time.Second * time.Duration(*argSleep))
 	}
 
-	os.Exit(*argCode)
+	fmt.Println("done, exiting with code", *argCode)
+
+	exitCode := *argCode
+	if *argError == true && exitCode == 0 {
+		exitCode = 255
+	}
+	os.Exit(exitCode)
 }

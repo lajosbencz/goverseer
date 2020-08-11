@@ -1,0 +1,4 @@
+programs:
+  - name: app1
+    path: payload
+    args: [-error, -repeat, 3]
